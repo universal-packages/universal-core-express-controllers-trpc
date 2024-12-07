@@ -1,4 +1,5 @@
-import { getTRPC } from '@universal-packages/express-controllers-trpc'
+import { EventEmitter } from '@universal-packages/event-emitter'
+import { getTrpcReference } from '@universal-packages/express-controllers-trpc'
 
 import { ExpressControllersTRPC } from '../src'
 
@@ -12,12 +13,13 @@ coreJest.runBare({
 
 describe(ExpressControllersTRPC, (): void => {
   it('behaves as expected', async (): Promise<void> => {
-    expect(getTRPC()).toEqual({
+    expect(getTrpcReference()).toEqual({
       trpcMiddleware: expect.any(Function),
       options: {
         trpcLocation: './tests/__fixtures__/trpc/index.ts',
         trpcPath: 'trpc-endpoint'
-      }
+      },
+      emitter: expect.any(EventEmitter)
     })
   })
 })
